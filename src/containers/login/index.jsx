@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup"
-import { useForm } from "react-hook-form"
+import { set, useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import * as yup from "yup"
 import { api } from "../../services/api"
-
+import { useNavigate } from "react-router-dom"
+import { useUser } from "../../hooks/UserContext"
 
 import {
   Container,
@@ -12,7 +13,8 @@ import {
   InputContainer,
   LeftContainer,
   RightContainer,
-  Title
+  Title,
+  Link
 } from "./styles"
 
 import Logo from "../../assets/logo.svg"
@@ -20,6 +22,8 @@ import Logo from "../../assets/logo.svg"
 import { Button } from "../../components/Button";
 
 export function Login() {
+  const navigate = useNavigate();
+  const { putUserData } = useUser();
   const schema = yup
     .object({
       email: yup.string().email('Digite um email válido').required('E-mail é obrigatório'),
@@ -36,25 +40,37 @@ export function Login() {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit = async(data) => {
-    const response = await toast.promise(
-      api.post('/sessions', {
-      email: data.email,
-      password: data.password,
-    }), {
-      pending: 'Fazendo login...',
-      success: 'Login realizado com sucesso!',
-      error: 'Email ou senha inválidos!'
-    }); 
-    
-    
-    api.post('/sessions', {
+const onSubmit = async (data) => {
+  try {
+    const {
+      data: { user, accessToken },
+    } = await api.post('/sessions', {
       email: data.email,
       password: data.password,
     });
 
-    console.log(response);
-  };
+    // 👉 Primeiro salva o token
+    localStorage.setItem('token', accessToken);
+
+    // 👉 Depois mostra o toast e redireciona
+    putUserData(user);
+    
+    toast.success('Login realizado com sucesso!');
+
+    setTimeout(() => {
+      if(user?.admin) {
+        navigate('/admin/pedidos');
+        
+      } else {
+        navigate('/');
+      }
+    }, 2000); // Aguarda 2 segundos para redirecionar
+  } catch (error) {
+    toast.error('Email ou senha inválidos!');
+  }
+};
+
+
 
   return (
     <Container>
@@ -81,7 +97,7 @@ export function Login() {
 
           <Button type="submit">Entrar</Button>
         </Form>
-        <p>Não tem uma conta? <a>Clique aqui</a></p>
+        <p>Não tem uma conta? <Link to="/cadastro">Clique aqui</Link></p>
       </RightContainer>
     </Container>
   )
