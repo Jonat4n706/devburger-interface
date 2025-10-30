@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../../../services/api';
 import { orderStatusOptions } from './orderStatus';
 import { Filter, FilterOptions } from './styles';
+import { Footer } from '../../../components/Footer';
 
 export function Orders() {
   const [orders, setOrders] = useState([]);
@@ -99,6 +100,7 @@ export function Orders() {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+         </>
+         
   );
 }

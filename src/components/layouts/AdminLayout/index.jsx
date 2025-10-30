@@ -1,6 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom"; 
 import { SideNavAdmin } from "../../SideNavAdmin";
 import { Container } from "./styles";
+import { Footer } from "../../Footer";
 
 
 export function AdminLayout() {
@@ -15,7 +16,9 @@ export function AdminLayout() {
     <Outlet/> 
     </section>
     </main>
+    <Footer/>
     </Container>
+    
     ) : ( <Navigate to="/login"/>
     );
 }

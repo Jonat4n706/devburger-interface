@@ -10,9 +10,10 @@ import { CompletePayment } from "../containers/CompletePayment";
 import { UserLayout } from "../components/layouts/UserLayout";
 import { AdminLayout } from "../components/layouts/AdminLayout";
 import { Orders } from "../containers/Admin/Orders";
-import { Products } from "../containers/Admin/Products";
+import { NewProduct} from "../containers/Admin/NewProducts/NewProduct";
 import { EditProducts } from "../containers/Admin/EditProducts";
-import { NewProducts } from "../containers/Admin/NewProducts";
+import { ProductsList } from "../containers/Admin/ProductsList";
+import { CheckoutDetails } from "../components/CheckoutDetails";
 
 
 export function Router() {
@@ -23,15 +24,16 @@ export function Router() {
             <Route path="/" element={<Home/>}/>
             <Route path="/cardapio" element={<Menu/>}/>
             <Route path="/carrinho" element={<Cart/>}/>
+            <Route path="/finalizar" element={<CheckoutDetails />} />
             <Route path="/checkout" element={<Checkout/>}/>
-            <Route path="/complete" element={<CompletePayment/>}/>
+            <Route path="/complete-payment" element={<CompletePayment/>}/>
             </Route>
         
         <Route path="/admin" element={<AdminLayout/>}>
         <Route path="/admin/pedidos" element={<Orders/>}/>
-        <Route path="/admin/novo-produto" element={<Products/>}/>
-        <Route path="/admin/editar-produto" element={<EditProducts/>}/>
-        <Route path="/admin/produtos" element={<NewProducts/>}/>
+        <Route path="/admin/novo-produto" element={<NewProduct/>}/>
+       <Route path="/admin/editar-produto/:id" element={<EditProducts />} />
+        <Route path="/admin/produtos" element={<ProductsList/>}/>
 
         </Route>
 

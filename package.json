@@ -3,15 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Jonat4n706.github.io/devburger-interface",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "biome check .",
     "format": "biome format .",
-    "preview": "vite preview",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
