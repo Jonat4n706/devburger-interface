@@ -86,6 +86,7 @@ O token JWT é salvo no localStorage e usado automaticamente nas requisições.
 🧠 Autor
 
 Desenvolvido por Jonathan Alves
+
 💼 LinkedIn: https://www.linkedin.com/in/jonathan-constantino/
 
 📧 jho-alv@hotmail.com
